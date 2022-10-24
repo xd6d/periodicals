@@ -1,0 +1,24 @@
+.account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.account h3 {
+    font-weight: normal;
+}
+
+.account table {
+    border-spacing: 24px;
+    text-align: center;
+}
+
+.forms {
+    display: flex;
+    flex-direction: row;
+}
+
+.forms form {
+    margin: 0 20px;
+}

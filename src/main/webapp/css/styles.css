@@ -1,0 +1,270 @@
+html {
+    height: 100%;
+    font-family: "Roboto Light", sans-serif;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.3em;
+    margin: 1em 0;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+    font-weight: bold;
+}
+
+h5 {
+    font-size: 0.8em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.7em;
+    margin: 2.33em 0;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #004b98;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
+}
+
+h4 {
+    font-weight: normal;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #1b1b1b solid;
+    margin-bottom: 40px;
+    box-shadow: 0 -6px 10px 5px #3d3939;
+}
+
+header h1 {
+    margin-left: 20px;
+    color: #1b1b1b;
+}
+
+header a {
+    color: #1b1b1b;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.menu h2 {
+    margin: 14px 0;
+}
+
+header a:visited {
+    color: initial;
+}
+
+header a:hover {
+    color: gray;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    width: 100%;
+    margin: 0
+}
+
+.topics-sorts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topics {
+    display: flex;
+}
+
+.topics a {
+    padding: 0 18px;
+}
+
+.sorts {
+    display: flex;
+    flex-direction: row;
+}
+
+.sorts form input[type=submit] {
+    border: none;
+    background-color: inherit;
+    color: #007bff;
+}
+
+.sorts form input[type=submit]:hover {
+    cursor: pointer;
+}
+
+.topics h4 {
+    margin: 0 0 14px 0;
+    padding-left: 22px;
+}
+
+.publications {
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+}
+
+.search form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.search form input[type=search] {
+    width: 60vw;
+    height: 25px;
+    padding: 14px 5px;
+    border: 1px solid #1b1b1b;
+    border-radius: 2px;
+}
+
+.search form input {
+    margin-right: 20px;
+}
+
+.publication {
+    border: 4px inset;
+    margin: 1% 4%;
+    display: flex;
+    flex-direction: column;
+}
+
+.publication-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.publication-wrapper {
+    padding-left: 2%;
+}
+
+.publications h4 {
+    padding-right: 2%;
+    white-space: nowrap;
+}
+
+.form-edit {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.method {
+    margin: 0 5px;
+}
+
+p {
+    margin-top: 0.6em;
+}
+
+.triangle {
+    color: #1b1b1b;
+}
+
+.triangle:visited {
+    color: #1b1b1b;
+}
+
+.error {
+    color: #ff3333;
+}
+
+.publication-main form {
+    margin-right: 14px;
+}
+
+.add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 11px 0;
+
+}
+
+.add button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 9vh;
+    width: 91vw;
+    font-size: 3em;
+    border: double;
+    color: #1b1b1b63;
+}
+
+.add button:hover {
+    cursor: pointer;
+}
+
+.blocked h1 {
+    text-align: center;
+    color: rgba(187, 2, 2, 0.77);
+}
