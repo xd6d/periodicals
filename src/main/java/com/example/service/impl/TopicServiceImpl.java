@@ -3,7 +3,6 @@ package com.example.service.impl;
 import com.example.dao.TopicRepository;
 import com.example.dao.impl.TopicRepositoryImpl;
 import com.example.entity.Topic;
-import com.example.entity.User;
 import com.example.service.TopicService;
 
 import java.util.Comparator;

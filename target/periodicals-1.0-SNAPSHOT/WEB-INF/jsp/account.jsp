@@ -31,8 +31,10 @@
             </tr>
         </table>
         <div class="forms">
-            <form action="replenish"><input type="submit" value="Replenish"></form>
-            <form action="logout"><input type="submit" value="Log out"></form>
+            <c:if test="${!sessionScope.user.role.name.equals('ADMIN')}">
+                <form action="/user/replenish"><input type="submit" value="Replenish"></form>
+            </c:if>
+            <form action="/logout"><input type="submit" value="Log out"></form>
         </div>
     </div>
 </div>

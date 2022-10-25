@@ -1,15 +1,11 @@
 package com.example.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Setter
-@Getter
-@ToString
+@Data
 @AllArgsConstructor
 public class Role {
     private final int id;
-    private String role;
+    private String name;
 }

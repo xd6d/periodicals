@@ -16,7 +16,7 @@
 <jsp:include page="fragment/header.jsp"/>
 <div class="container-fluid">
     <div class="edit">
-        <form action="edit-publication" method="post">
+        <form action="/admin/edit-publication" method="post">
             <h3>Edit publication</h3>
             <label>
                 <input type="text" placeholder="Title" name="title" required value="${requestScope.publication.title}">
@@ -36,7 +36,7 @@
         </form>
     </div>
     <div class="delete" onsubmit="return confirm('Are you sure want to delete this publication?');">
-        <form action="delete" method="post">
+        <form action="/admin/delete" method="post">
             <input type="submit" value="Delete">
             <input type="hidden" value="${requestScope.publication.id}" name="publicationId">
         </form>

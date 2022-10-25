@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="publications">
-    <c:if test="${sessionScope.user.role.role.equals('ADMIN')}">
+    <c:if test="${sessionScope.user.role.name.equals('ADMIN')}">
         <div class="add">
-            <a href="add">
+            <a href="/admin/add">
                 <button>+</button>
             </a>
         </div>
@@ -24,7 +24,7 @@
                         </c:if>
                     </div>
                 </div>
-                <form action="subscribe" method="post">
+                <form action="/user/subscribe" method="post">
                     <label>
                         <input type="submit"
                                value="<c:out value="${publication.price} $"/>"
@@ -35,9 +35,9 @@
                     <input type="hidden" value="${publication.id}" name="publicationId">
                 </form>
             </div>
-            <c:if test="${sessionScope.user.role.role.equals('ADMIN')}">
+            <c:if test="${sessionScope.user.role.name.equals('ADMIN')}">
                 <div class="form-edit">
-                    <form action="edit">
+                    <form action="/admin/edit">
                         <input type="submit" value="Edit">
                         <input type="hidden" name="publicationId" value="${publication.id}">
                     </form>

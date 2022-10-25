@@ -16,7 +16,7 @@
 <jsp:include page="fragment/header.jsp"/>
 <div class="container-fluid">
     <div class="login">
-        <form action="login" method="post">
+        <form action="enter-account" method="post">
             <h3>Log in</h3>
             <label>
                 <input type="email" placeholder="Email" name="email" required>

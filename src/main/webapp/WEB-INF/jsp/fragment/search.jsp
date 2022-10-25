@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="search">
-    <form action="/" name="search-form">
+    <form action="" name="search-form">
         <label>
             <input type="search" name="search" placeholder="Search for a publication here" value="${param.search}"
                    id="search">

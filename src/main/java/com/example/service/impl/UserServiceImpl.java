@@ -15,13 +15,26 @@ public class UserServiceImpl implements UserService {
     private final PublicationRepository pr = new PublicationRepositoryImpl();
 
     @Override
-    public User createUser(String username, String email, String password) {
-        User user = new User(username, email);
-        boolean isCreated = ur.insertUser(user, password);
+    public User createUser(String username, String email, String password, String confirmPassword) {
+        if (username == null)
+            throw new IllegalArgumentException("Enter username.");
+        if (email == null)
+            throw new IllegalArgumentException("Enter email.");
+        if (password == null)
+            throw new IllegalArgumentException("Enter password.");
+        if (confirmPassword == null)
+            throw new IllegalArgumentException("Enter confirm password.");
+        if (!password.equals(confirmPassword))
+            throw new IllegalArgumentException("Passwords are not the same.");
+        if (getUserByUsername(username) != null)
+            throw new IllegalArgumentException("User with the given username already exists.");
+        if (getUserByEmail(email) != null)
+            throw new IllegalArgumentException("This email is already registered.");
+        boolean isCreated = ur.insertUser(new User(username, email), password);
         if (isCreated)
             return ur.findUserByUsername(username);
         else
-            return null;
+            throw new RuntimeException("Something went wrong. Please try again later.");
     }
 
     @Override
@@ -41,12 +54,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean replenish(User user, double amount) {
-        if (user == null)
-            return false;
         boolean success = ur.updateUserBalance(user, amount);
         if (success)
             user.setBalance(user.getBalance() + amount);
-        return success;
+        else
+            throw new RuntimeException("Something went wrong. Please try again later.");
+        return true;
+    }
+
+    @Override
+    public boolean replenish(User user, String amount) {
+        if (amount == null || !amount.matches("^[+]?[\\d]+$"))
+            throw new IllegalArgumentException("Enter amount.");
+        return replenish(user, Double.parseDouble(amount));
     }
 
     @Override
@@ -67,6 +87,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean subscribe(User user, String publicationId) {
+        if (publicationId != null && publicationId.matches("^[+-]?[\\d]+$"))
+            return subscribe(user, Integer.parseInt(publicationId));
+        return false;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return ur.findAll();
     }
@@ -82,6 +109,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean block(String username) {
+        if (username != null)
+            return block(getUserByUsername(username));
+        return false;
+    }
+
+    @Override
     public boolean unblock(User user) {
         if (user == null)
             return false;
@@ -89,5 +123,29 @@ public class UserServiceImpl implements UserService {
         if (success)
             user.setBlocked(false);
         return success;
+    }
+
+    @Override
+    public boolean unblock(String username) {
+        if (username != null)
+            return unblock(getUserByUsername(username));
+        return false;
+    }
+
+    @Override
+    public User enterAccount(String email, String givenPassword) {
+        String actualPassword = getPassword(email);
+        if (email == null)
+            throw new IllegalArgumentException("Enter email.");
+        if (givenPassword == null)
+            throw new IllegalArgumentException("Enter password.");
+        if (actualPassword == null)
+            throw new IllegalArgumentException("User with the given email does not exist.");
+        if (givenPassword.equals(actualPassword)) {
+            return getUserByEmail(email);
+        }
+        else
+            throw new IllegalArgumentException("Incorrect password.");
+
     }
 }

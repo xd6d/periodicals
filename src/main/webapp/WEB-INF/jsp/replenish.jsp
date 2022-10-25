@@ -16,7 +16,7 @@
 <jsp:include page="fragment/header.jsp"/>
 <div class="container-fluid">
     <div class="replenish">
-        <form action="replenish" method="post">
+        <form action="/user/add-balance" method="post">
             <label>
                 Replenish by: <input type="number" step="0.01" name="replenish" min="0.01"> $
             </label>

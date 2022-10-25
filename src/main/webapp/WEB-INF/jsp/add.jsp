@@ -16,7 +16,7 @@
 <jsp:include page="fragment/header.jsp"/>
 <div class="container-fluid">
     <div class="new">
-        <form action="new" method="post">
+        <form action="/admin/new" method="post">
             <h3>New publication</h3>
             <label>
                 <input type="text" placeholder="Title" name="title" required value="${param.title}">

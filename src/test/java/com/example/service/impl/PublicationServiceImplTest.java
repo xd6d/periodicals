@@ -32,7 +32,7 @@ class PublicationServiceImplTest {
 
     @Test
     void createPublication() {
-        assertTrue(publicationService.createPublication(testPublication.getTitle(), testPublication.getPrice(), new String[]{}));
+        assertTrue(publicationService.createPublication(testPublication.getTitle(), Double.toString(testPublication.getPrice()), new String[]{}));
     }
 
     @Test

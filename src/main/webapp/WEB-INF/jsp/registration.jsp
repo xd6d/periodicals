@@ -16,7 +16,7 @@
 <jsp:include page="fragment/header.jsp"/>
 <div class="container-fluid">
     <div class="signup">
-        <form action="registration" method="post">
+        <form action="create-user" method="post">
             <h3>Registration</h3>
             <label>
                 <input type="text" placeholder="Username" name="username" required value="${param.username}">

@@ -30,13 +30,13 @@
                     <td><c:out value="${user.id}"/></td>
                     <td><c:out value="${user.username}"/></td>
                     <td><c:out value="${user.email}"/></td>
-                    <td><c:out value="${user.role.role}"/></td>
+                    <td><c:out value="${user.role.name}"/></td>
                     <td><c:out value="${user.balance} $"/></td>
                     <c:if test="${user.blocked}">
                         <td>Yes</td>
                         <td>
-                            <c:if test="${!user.role.role.equals('ADMIN')}">
-                                <form action="unblock" method="post">
+                            <c:if test="${!user.role.name.equals('ADMIN')}">
+                                <form action="/admin/unblock" method="post">
                                     <input type="submit" value="Unblock">
                                     <input type="hidden" value="${user.username}" name="username">
                                 </form>
@@ -46,8 +46,8 @@
                     <c:if test="${!user.blocked}">
                         <td>No</td>
                         <td>
-                            <c:if test="${!user.role.role.equals('ADMIN')}">
-                                <form action="block" method="post">
+                            <c:if test="${!user.role.name.equals('ADMIN')}">
+                                <form action="/admin/block" method="post">
                                     <input type="submit" value="Block">
                                     <input type="hidden" value="${user.username}" name="username">
                                 </form>

@@ -268,3 +268,8 @@ p {
     text-align: center;
     color: rgba(187, 2, 2, 0.77);
 }
+
+.blocked form {
+    display: flex;
+    justify-content: center;
+}

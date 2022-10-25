@@ -3,21 +3,21 @@
 <header>
     <a href="/"><h1>Periodicals</h1></a>
     <div class="menu">
-        <c:if test="${!empty sessionScope.user && sessionScope.user.role.role.equals('ADMIN')}">
-            <a href="users">
+        <c:if test="${!empty sessionScope.user && sessionScope.user.role.name.equals('ADMIN')}">
+            <a href="/admin/users">
                 <h2>
                     Users
                 </h2>
             </a>
         </c:if>
-        <c:if test="${!empty sessionScope.user && sessionScope.user.role.role.equals('READER')}">
-            <a href="subscribed">
+        <c:if test="${!empty sessionScope.user && sessionScope.user.role.name.equals('READER')}">
+            <a href="/user/subscribed">
                 <h2>
                     My publications
                 </h2>
             </a>
         </c:if>
-        <a href="account">
+        <a href="/user/account">
             <h2>
                 <c:if test="${!empty sessionScope.user}">
                     <c:out value="${sessionScope.user.username}"/>

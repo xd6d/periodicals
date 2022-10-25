@@ -16,6 +16,7 @@
 <div class="container-fluid">
     <div class="blocked">
         <h1>Your account has been blocked.</h1>
+        <form action="/logout"><input type="submit" value="Log out"></form>
     </div>
 </div>
 <jsp:include page="fragment/footer.jsp"/>

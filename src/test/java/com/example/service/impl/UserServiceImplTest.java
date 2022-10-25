@@ -13,7 +13,7 @@ class UserServiceImplTest {
 
     @Test
     void createUser() {
-        assertNull(userService.createUser(testUser.getUsername(), testUser.getEmail(), testUserPassword));
+        assertNull(userService.createUser(testUser.getUsername(), testUser.getEmail(), testUserPassword, testUserPassword));
     }
 
     @Test
@@ -56,13 +56,13 @@ class UserServiceImplTest {
     void block() {
         testUser = userService.getUserByUsername(testUser.getUsername());
         assertTrue(userService.block(testUser));
-        assertFalse(userService.block(null));
+        assertFalse(userService.block((User) null));
     }
 
     @Test
     void unblock() {
         testUser = userService.getUserByUsername(testUser.getUsername());
         assertTrue(userService.unblock(testUser));
-        assertFalse(userService.unblock(null));
+        assertFalse(userService.unblock((User) null));
     }
 }
