@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionAdapter{
+public class ConnectionAdapter {
 
     private static final String user = System.getenv("user");
     private static final String password = System.getenv("password");

@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Passes the request only if the user is not blocked, else redirects to "Your account is blocked" page.
+ */
 @WebFilter(filterName = "BlockedUserFilter")
 public class BlockedUserFilter implements Filter {
 
@@ -21,5 +24,4 @@ public class BlockedUserFilter implements Filter {
         else
             req.getRequestDispatcher("/WEB-INF/jsp/blocked.jsp").forward(req, resp);
     }
-
 }

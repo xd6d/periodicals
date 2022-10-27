@@ -16,7 +16,7 @@ class TopicServiceImplTest {
 
     @Test
     void createTopic() {
-        assertTrue(topicService.createTopic(testTopic));
+        assertFalse(topicService.createTopic(testTopic));
     }
 
     @Test

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Data
 @AllArgsConstructor
-public class Publication{
+public class Publication {
     private int id;
     private String title;
     private double price;

@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Passes the request only if the user is unauthorized, else redirects.
+ */
 @WebFilter(filterName = "UnauthorizedUserFilter")
 public class UnauthorizedUserFilter implements Filter {
 

@@ -13,7 +13,7 @@ class UserServiceImplTest {
 
     @Test
     void createUser() {
-        assertNull(userService.createUser(testUser.getUsername(), testUser.getEmail(), testUserPassword, testUserPassword));
+        assertThrows(IllegalArgumentException.class, () -> userService.createUser(testUser.getUsername(), testUser.getEmail(), testUserPassword, testUserPassword));
     }
 
     @Test
@@ -65,4 +65,6 @@ class UserServiceImplTest {
         assertTrue(userService.unblock(testUser));
         assertFalse(userService.unblock((User) null));
     }
+
+
 }

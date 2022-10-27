@@ -171,7 +171,7 @@ public class PublicationRepositoryImpl implements PublicationRepository {
             connection.createStatement().executeUpdate(
                     String.format(DELETE_TOPICS, id)
             );
-            for (Topic topic: topics)
+            for (Topic topic : topics)
                 res += connection.createStatement().executeUpdate(
                         String.format(INSERT_TOPICS, id, topic.getId())
                 );

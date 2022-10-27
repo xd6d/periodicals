@@ -54,6 +54,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean replenish(User user, double amount) {
+        if (user == null)
+            return false;
         boolean success = ur.updateUserBalance(user, amount);
         if (success)
             user.setBalance(user.getBalance() + amount);
@@ -143,8 +145,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User with the given email does not exist.");
         if (givenPassword.equals(actualPassword)) {
             return getUserByEmail(email);
-        }
-        else
+        } else
             throw new IllegalArgumentException("Incorrect password.");
 
     }

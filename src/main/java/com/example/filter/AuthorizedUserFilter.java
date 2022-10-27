@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Passes the request only if the user is authorized, else redirects.<br>
+ * Also, if the user is authorized, refreshes the information about his account.
+ */
 @WebFilter(filterName = "AuthorizedUserFilter")
 public class AuthorizedUserFilter implements Filter {
 

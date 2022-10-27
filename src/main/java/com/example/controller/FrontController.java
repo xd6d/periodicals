@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * The only controller. Handles all HTTP requests.
+ */
 @WebServlet(value = {"/"}, name = "FrontController")
 public class FrontController extends HttpServlet {
     TopicService topicService;

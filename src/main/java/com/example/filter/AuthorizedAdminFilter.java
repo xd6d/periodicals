@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Passes the request only if the user has role "ADMIN", else redirects.
+ */
 @WebFilter(filterName = "AuthorizedAdminFilter")
 public class AuthorizedAdminFilter implements Filter {
 

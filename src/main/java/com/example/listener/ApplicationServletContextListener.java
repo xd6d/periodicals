@@ -10,8 +10,12 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+/**
+ * On ServletContext initialization provides service classes instances in ServletContext attributes.<br>
+ * On ServletContext destruction closes database connection and unregisters database driver.
+ */
 @WebListener
-public class ApplicationServletContextListener implements ServletContextListener{
+public class ApplicationServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext servletContext = sce.getServletContext();

@@ -33,17 +33,22 @@ class PublicationServiceImplTest {
     @Test
     void createPublication() {
         assertTrue(publicationService.createPublication(testPublication.getTitle(), Double.toString(testPublication.getPrice()), new String[]{}));
+        assertFalse(publicationService.createPublication(null, "0.1", new String[]{}));
+        assertFalse(publicationService.createPublication("Some title", null, new String[]{}));
     }
 
     @Test
     void getPublicationById() {
         assertNotNull(publicationService.getPublicationById(6));
+        assertNotNull(publicationService.getPublicationById("6"));
         assertNull(publicationService.getPublicationById(1));
+        assertThrows(IllegalArgumentException.class, () -> publicationService.getPublicationById("1"));
+        assertThrows(IllegalArgumentException.class, () -> publicationService.getPublicationById(null));
+
     }
 
     @Test
     void delete() {
-        assertTrue(publicationService.delete("25"));
         assertFalse(publicationService.delete(""));
         assertFalse(publicationService.delete(null));
     }
