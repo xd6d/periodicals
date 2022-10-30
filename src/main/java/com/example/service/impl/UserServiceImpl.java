@@ -17,24 +17,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(String username, String email, String password, String confirmPassword) {
         if (username == null)
-            throw new IllegalArgumentException("Enter username.");
+            throw new IllegalArgumentException("enter_username");
+        if (!username.matches("^[a-zA-Z0-9]+$"))
+            throw new IllegalArgumentException("only_latin_letters_and_numbers_allowed");
         if (email == null)
-            throw new IllegalArgumentException("Enter email.");
+            throw new IllegalArgumentException("enter_email");
         if (password == null)
-            throw new IllegalArgumentException("Enter password.");
+            throw new IllegalArgumentException("enter_password");
         if (confirmPassword == null)
-            throw new IllegalArgumentException("Enter confirm password.");
+            throw new IllegalArgumentException("enter_confirm_password");
         if (!password.equals(confirmPassword))
-            throw new IllegalArgumentException("Passwords are not the same.");
+            throw new IllegalArgumentException("passwords_are_not_the_same");
         if (getUserByUsername(username) != null)
-            throw new IllegalArgumentException("User with the given username already exists.");
+            throw new IllegalArgumentException("user_with_the_given_username_already_exists");
         if (getUserByEmail(email) != null)
-            throw new IllegalArgumentException("This email is already registered.");
+            throw new IllegalArgumentException("this_email_is_already_registered");
         boolean isCreated = ur.insertUser(new User(username, email), password);
         if (isCreated)
             return ur.findUserByUsername(username);
         else
-            throw new RuntimeException("Something went wrong. Please try again later.");
+            throw new RuntimeException("smth_went_wrong_please_try_again_later");
     }
 
     @Override
@@ -60,14 +62,14 @@ public class UserServiceImpl implements UserService {
         if (success)
             user.setBalance(user.getBalance() + amount);
         else
-            throw new RuntimeException("Something went wrong. Please try again later.");
+            throw new RuntimeException("smth_went_wrong_please_try_again_later");
         return true;
     }
 
     @Override
     public boolean replenish(User user, String amount) {
         if (amount == null || !amount.matches("^[+]?[\\d]+$"))
-            throw new IllegalArgumentException("Enter amount.");
+            throw new IllegalArgumentException("enter_amount");
         return replenish(user, Double.parseDouble(amount));
     }
 
@@ -138,15 +140,14 @@ public class UserServiceImpl implements UserService {
     public User enterAccount(String email, String givenPassword) {
         String actualPassword = getPassword(email);
         if (email == null)
-            throw new IllegalArgumentException("Enter email.");
+            throw new IllegalArgumentException("enter_email");
         if (givenPassword == null)
-            throw new IllegalArgumentException("Enter password.");
+            throw new IllegalArgumentException("enter_password");
         if (actualPassword == null)
-            throw new IllegalArgumentException("User with the given email does not exist.");
+            throw new IllegalArgumentException("user_with_the_given_email_does_not_exist");
         if (givenPassword.equals(actualPassword)) {
             return getUserByEmail(email);
         } else
-            throw new IllegalArgumentException("Incorrect password.");
-
+            throw new IllegalArgumentException("incorrect_password");
     }
 }

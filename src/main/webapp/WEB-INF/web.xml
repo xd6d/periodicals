@@ -6,10 +6,10 @@
     <session-config>
         <session-timeout>4320</session-timeout><!--3 days-->
     </session-config>
-    <icon>
-        <small-icon>icon.gif</small-icon>
-        <large-icon>large-icon.gif</large-icon>
-    </icon>
+<!--    <icon>-->
+<!--        <small-icon>icon.gif</small-icon>-->
+<!--        <large-icon>large-icon.gif</large-icon>-->
+<!--    </icon>-->
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/error/404.jsp</location>

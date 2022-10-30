@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.logging.LogManager;
 
 /**
  * On ServletContext initialization provides service classes instances in ServletContext attributes.<br>
@@ -22,6 +23,8 @@ public class ApplicationServletContextListener implements ServletContextListener
         servletContext.setAttribute("topicService", new TopicServiceImpl());
         servletContext.setAttribute("publicationService", new PublicationServiceImpl());
         servletContext.setAttribute("userService", new UserServiceImpl());
+        servletContext.setRequestCharacterEncoding("UTF-8");
+        servletContext.setResponseCharacterEncoding("UTF-8");
     }
 
     @Override

@@ -18,5 +18,5 @@ public interface PublicationRepository {
 
     boolean delete(int publicationId);
 
-    boolean update(int id, String title, double price, List<Topic> topics);
+    boolean update(Publication entity);
 }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TopicServiceImplTest {
     private final TopicServiceImpl topicService = new TopicServiceImpl();
-    private final Topic testTopic = new Topic(0, "testTopic");
+    private final Topic testTopic = new Topic(0, "testTopic", "testTopic");
 
     @Test
     void getAllTopics() {

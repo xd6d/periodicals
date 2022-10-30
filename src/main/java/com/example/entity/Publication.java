@@ -12,17 +12,46 @@ import java.util.Objects;
 public class Publication {
     private int id;
     private String title;
+    private String titleEN;
+    private String titleUK;
     private double price;
     private List<Topic> topics;
 
     public Publication(String title, double price, List<Topic> topics) {
         this.title = title;
+        this.titleEN = title;
+        this.price = price;
+        this.topics = topics;
+    }
+
+    public Publication(int id, String title, double price, List<Topic> topics) {
+        this.id = id;
+        this.title = title;
+        this.titleEN = title;
+        this.price = price;
+        this.topics = topics;
+    }
+
+    public Publication(String title, String titleUK, double price, List<Topic> topics) {
+        this.title = title;
+        this.titleEN = title;
+        this.titleUK = titleUK;
+        this.price = price;
+        this.topics = topics;
+    }
+
+    public Publication(int id, String title, String titleUK, double price, List<Topic> topics) {
+        this.id = id;
+        this.title = title;
+        this.titleEN = title;
+        this.titleUK = titleUK;
         this.price = price;
         this.topics = topics;
     }
 
     public Publication(String title, double price) {
         this.title = title;
+        this.titleEN = title;
         this.price = price;
         this.topics = new ArrayList<>();
     }

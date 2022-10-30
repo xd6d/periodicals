@@ -8,10 +8,13 @@ import com.example.service.UserService;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * The only controller. Handles all HTTP requests.
@@ -70,6 +73,9 @@ public class FrontController extends HttpServlet {
             case "/user/replenish":
                 replenish(req, resp);
                 break;
+            case "/user/account":
+                account(req, resp);
+                break;
             case "/logout":
                 logout(req, resp);
                 break;
@@ -85,20 +91,31 @@ public class FrontController extends HttpServlet {
             case "/registration":
                 registration(req, resp);
                 break;
-            case "/user/account":
-                account(req, resp);
+            case "/locale":
+                locale(req, resp);
                 break;
             default:
                 index(req, resp);
         }
     }
 
+    protected void locale(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String lang = req.getParameter("locale");
+        Cookie cookie = new Cookie("locale", "en");
+        if (lang.equals("uk"))
+            cookie.setValue(lang);
+        cookie.setMaxAge(-1);
+        resp.addCookie(cookie);
+        resp.sendRedirect("/");
+    }
+
     protected void editPublication(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String publicationIdSrt = req.getParameter("publicationId");
         String title = req.getParameter("title");
+        String titleUK = req.getParameter("titleUK");
         String price = req.getParameter("price");
         String[] topics = req.getParameterValues("topic");
-        publicationService.edit(publicationIdSrt, title, price, topics);
+        publicationService.edit(publicationIdSrt, title, titleUK, price, topics);
         resp.sendRedirect("/");
     }
 
@@ -110,9 +127,10 @@ public class FrontController extends HttpServlet {
 
     protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String publicationIdStr = req.getParameter("publicationId");
+        String locale = getLocale(req);
         try {
             req.setAttribute("publication", publicationService.getPublicationById(publicationIdStr));
-            req.setAttribute("topics", topicService.getAllTopics());
+            req.setAttribute("topics", topicService.provideTopics("name", locale));
             req.getRequestDispatcher("/WEB-INF/jsp/edit.jsp").forward(req, resp);
         } catch (IllegalArgumentException e) {
             resp.sendRedirect("/");
@@ -121,14 +139,16 @@ public class FrontController extends HttpServlet {
 
     protected void newPublication(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String title = req.getParameter("title");
+        String titleUK = req.getParameter("titleUK");
         String price = req.getParameter("price");
         String[] topics = req.getParameterValues("topic");
-        publicationService.createPublication(title, price, topics);
+        publicationService.createPublication(title, titleUK, price, topics);
         resp.sendRedirect("/");
     }
 
     protected void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("topics", topicService.getAllTopics());
+        String locale = getLocale(req);
+        req.setAttribute("topics", topicService.provideTopics("name", locale));
         req.getRequestDispatcher("/WEB-INF/jsp/add.jsp").forward(req, resp);
     }
 
@@ -162,9 +182,10 @@ public class FrontController extends HttpServlet {
         String sortName = req.getParameter("sort");
         String reversedName = req.getParameter("reversed");
         String search = req.getParameter("search");
+        String locale = getLocale(req);
 
-        req.setAttribute("publications", publicationService.provideUsersPublications(user, topicParam, search, sortName, reversedName));
-        req.setAttribute("topics", topicService.getAllAndSortByName());
+        req.setAttribute("publications", publicationService.provideUsersPublications(user, topicParam, search, sortName, reversedName, locale));
+        req.setAttribute("topics", topicService.provideTopics("name", locale));
         req.getRequestDispatcher("/WEB-INF/jsp/subscribed.jsp").forward(req, resp);
     }
 
@@ -173,10 +194,24 @@ public class FrontController extends HttpServlet {
         String sortName = req.getParameter("sort");
         String reversedName = req.getParameter("reversed");
         String search = req.getParameter("search");
+        String locale = getLocale(req);
 
-        req.setAttribute("publications", publicationService.providePublications(topicParam, search, sortName, reversedName));
-        req.setAttribute("topics", topicService.getAllAndSortByName());
+        req.setAttribute("publications", publicationService.providePublications(topicParam, search, sortName, reversedName, locale));
+        req.setAttribute("topics", topicService.provideTopics("name", locale));
         req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
+    }
+
+    private String getLocale(HttpServletRequest req) {
+        String locale = "en";
+        Cookie[] cookies = req.getCookies();
+        if (cookies == null)
+            return locale;
+        for (Cookie cookie : cookies)
+            if (cookie.getName().equals("locale")) {
+                locale = cookie.getValue();
+                break;
+            }
+        return locale;
     }
 
     protected void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {

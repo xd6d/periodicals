@@ -43,4 +43,28 @@ public class TopicServiceImpl implements TopicService {
     public boolean createTopic(Topic topic) {
         return tr.insertTopic(topic);
     }
+
+    @Override
+    public List<Topic> provideTopics(String sortName, String locale) {
+        List<Topic> topics = getAllByLocale(locale);
+        return sortTopics(sortName, topics);
+    }
+
+    @Override
+    public List<Topic> sortTopics(String sortName, List<Topic> topics) {
+        if (sortName == null)
+            return topics;
+        if (sortName.equals("name"))
+            topics.sort(Comparator.comparing(Topic::getName));
+        return topics;
+    }
+
+
+    @Override
+    public List<Topic> getAllByLocale(String locale) {
+        List<Topic> topics = getAllTopics();
+        if (locale.equals("uk"))
+            topics.forEach(t -> t.setName(t.getNameUK()));
+        return topics;
+    }
 }

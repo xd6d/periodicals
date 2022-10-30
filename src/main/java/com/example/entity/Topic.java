@@ -1,15 +1,25 @@
 package com.example.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.Objects;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class Topic {
     private final int id;
-    private final String name;
+    private String name;
+    private String nameEN;
+    private String nameUK;
+
+    public Topic(int id, String name, String nameUK) {
+        this.id = id;
+        this.name = name;
+        this.nameEN = name;
+        this.nameUK = nameUK;
+    }
 
     @Override
     public String toString() {

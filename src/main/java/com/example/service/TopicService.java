@@ -14,4 +14,10 @@ public interface TopicService {
     Topic getTopicByStringId(String strId);
 
     boolean createTopic(Topic topic);
+
+    List<Topic> provideTopics(String sortName, String locale);
+
+    List<Topic> sortTopics(String sortName, List<Topic> topics);
+
+    List<Topic> getAllByLocale(String locale);
 }

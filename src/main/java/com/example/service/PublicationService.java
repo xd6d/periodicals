@@ -9,6 +9,8 @@ import java.util.List;
 public interface PublicationService {
     List<Publication> getAllPublications();
 
+    List<Publication> getAllPublicationsByLocale(String locale);
+
     List<Publication> getPublicationsByTopic(Topic topic);
 
     List<Publication> selectPublicationsBySearch(String search, List<Publication> publications);
@@ -16,6 +18,8 @@ public interface PublicationService {
     List<Publication> selectPublicationsByTopic(Topic topic, List<Publication> publications);
 
     boolean createPublication(String title, String price, String[] topicIds);
+
+    boolean createPublication(String title, String titleUK, String price, String[] topicIds);
 
     Publication getPublicationById(int id);
 
@@ -25,7 +29,11 @@ public interface PublicationService {
 
     boolean edit(String publicationIdSrt, String title, String price, String[] topics);
 
-    List<Publication> providePublications(String topicId, String search, String sortName, String reversedName);
+    boolean edit(String publicationIdSrt, String title, String titleUK, String price, String[] topics);
+
+    List<Publication> providePublications(String topicId, String search, String sortName, String reversedName, String locale);
 
     List<Publication> provideUsersPublications(User user, String topicId, String search, String sortName, String reversedName);
+
+    List<Publication> provideUsersPublications(User user, String topicId, String search, String sortName, String reversedName, String locale);
 }
