@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.util.logging.LogManager;
 
 /**
  * On ServletContext initialization provides service classes instances in ServletContext attributes.<br>

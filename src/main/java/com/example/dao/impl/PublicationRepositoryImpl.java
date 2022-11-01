@@ -110,7 +110,8 @@ public class PublicationRepositoryImpl implements PublicationRepository {
     @Override
     public boolean insertPublication(Publication entity) {
         int res = 1;
-        try (PreparedStatement psInsertPubl = connection.prepareStatement(INSERT_INTO_PUBLICATIONS)) {
+        try (PreparedStatement psInsertPubl = connection.prepareStatement(INSERT_INTO_PUBLICATIONS);
+             PreparedStatement psInsertTopics = connection.prepareStatement(INSERT_TOPICS)) {
             connection.setAutoCommit(false);
             psInsertPubl.setString(1, entity.getTitle());
             psInsertPubl.setDouble(2, entity.getPrice());
@@ -119,7 +120,6 @@ public class PublicationRepositoryImpl implements PublicationRepository {
 
             int entityID = findByTitle(entity.getTitle()).getId();
             for (Topic topic : entity.getTopics()) {
-                PreparedStatement psInsertTopics = connection.prepareStatement(INSERT_TOPICS);
                 psInsertTopics.setInt(1, entityID);
                 psInsertTopics.setInt(2, topic.getId());
                 psInsertTopics.executeUpdate();
@@ -174,7 +174,8 @@ public class PublicationRepositoryImpl implements PublicationRepository {
     public boolean update(Publication entity) {
         int res = 1;
         try (PreparedStatement psUpdate = connection.prepareStatement(UPDATE);
-             PreparedStatement psDeleteTopics = connection.prepareStatement(DELETE_TOPICS)) {
+             PreparedStatement psDeleteTopics = connection.prepareStatement(DELETE_TOPICS);
+             PreparedStatement psInsertTopics = connection.prepareStatement(INSERT_TOPICS)) {
             connection.setAutoCommit(false);
             psUpdate.setString(1, entity.getTitle());
             psUpdate.setDouble(2, entity.getPrice());
@@ -185,7 +186,6 @@ public class PublicationRepositoryImpl implements PublicationRepository {
             psDeleteTopics.setInt(1, entity.getId());
             psDeleteTopics.executeUpdate();
             for (Topic topic : entity.getTopics()) {
-                PreparedStatement psInsertTopics = connection.prepareStatement(INSERT_TOPICS);
                 psInsertTopics.setInt(1, entity.getId());
                 psInsertTopics.setInt(2, topic.getId());
                 psInsertTopics.executeUpdate();

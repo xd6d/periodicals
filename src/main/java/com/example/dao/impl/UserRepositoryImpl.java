@@ -11,16 +11,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class UserRepositoryImpl implements UserRepository {
     private final Connection connection = ConnectionAdapter.getConnection();
@@ -66,7 +63,6 @@ public class UserRepositoryImpl implements UserRepository {
     private List<Publication> getPublicationsByUserID(int id) {
         List<Publication> publications = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(SELECT_PUBLICATIONS)) {
-//            ResultSet resultSet = connection.createStatement().executeQuery(String.format(SELECT_PUBLICATIONS, id));
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
@@ -82,7 +78,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User findUserByEmail(String email) {
         User user = null;
         try (PreparedStatement ps = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
-//            ResultSet resultSet = connection.createStatement().executeQuery(String.format(FIND_USER_BY_EMAIL, email));
             ps.setString(1, email);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
@@ -107,13 +102,6 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean insertUser(User entity, String password) {
         int res = 0;
         try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
-//            res = connection.createStatement().executeUpdate(
-//                    String.format(Locale.US, INSERT,
-//                            entity.getUsername(),
-//                            entity.getEmail(),
-//                            password)
-//            );
-
             ps.setString(1, entity.getUsername());
             ps.setString(2, entity.getEmail());
             ps.setString(3, password);
@@ -128,7 +116,6 @@ public class UserRepositoryImpl implements UserRepository {
     public String getPasswordByEmail(String email) {
         String password = null;
         try (PreparedStatement ps = connection.prepareStatement(FIND_PASSWORD_BY_EMAIL)) {
-//            ResultSet resultSet = connection.createStatement().executeQuery(String.format(FIND_PASSWORD_BY_EMAIL, email));
             ps.setString(1, email);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next())
@@ -143,11 +130,6 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean updateUserBalance(User user, double amount) {
         int res = 0;
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_USER_BALANCE)) {
-//            res = connection.createStatement().executeUpdate(
-//                    String.format(Locale.US, UPDATE_USER_BALANCE,
-//                            user.getBalance() + amount,
-//                            user.getId())
-//            );
             BigDecimal balance = BigDecimal.valueOf(user.getBalance() + amount);
             balance = balance.setScale(2, RoundingMode.HALF_UP);
             ps.setDouble(1, balance.doubleValue());
@@ -163,11 +145,6 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean subscribe(User user, int publicationId) {
         int res = 0;
         try (PreparedStatement ps = connection.prepareStatement(INSERT_PUBLICATION)) {
-//            res = connection.createStatement().executeUpdate(
-//                    String.format(INSERT_PUBLICATION,
-//                            user.getId(),
-//                            publicationId)
-//            );
             ps.setInt(1, user.getId());
             ps.setInt(2, publicationId);
             res = ps.executeUpdate();

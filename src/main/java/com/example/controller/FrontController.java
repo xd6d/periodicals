@@ -8,12 +8,8 @@ import com.example.service.UserService;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -100,13 +96,12 @@ public class FrontController extends HttpServlet {
     }
 
     protected void locale(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String lang = req.getParameter("locale");
-        Cookie cookie = new Cookie("locale", "en");
-        if (lang.equals("uk"))
-            cookie.setValue(lang);
-        cookie.setMaxAge(-1);
-        resp.addCookie(cookie);
-        resp.sendRedirect("/");
+        String localeParam = req.getParameter("locale");
+        String locale = "en";
+        if (localeParam != null && localeParam.equals("uk"))
+            locale = localeParam;
+        req.getSession().setAttribute("locale", locale);
+        resp.sendRedirect(req.getHeader("Referer"));
     }
 
     protected void editPublication(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -127,7 +122,8 @@ public class FrontController extends HttpServlet {
 
     protected void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String publicationIdStr = req.getParameter("publicationId");
-        String locale = getLocale(req);
+//        String locale = getLocale(req);
+        String locale = req.getSession().getAttribute("locale").toString();
         try {
             req.setAttribute("publication", publicationService.getPublicationById(publicationIdStr));
             req.setAttribute("topics", topicService.provideTopics("name", locale));
@@ -147,7 +143,8 @@ public class FrontController extends HttpServlet {
     }
 
     protected void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String locale = getLocale(req);
+//        String locale = getLocale(req);
+        String locale = req.getSession().getAttribute("locale").toString();
         req.setAttribute("topics", topicService.provideTopics("name", locale));
         req.getRequestDispatcher("/WEB-INF/jsp/add.jsp").forward(req, resp);
     }
@@ -182,7 +179,8 @@ public class FrontController extends HttpServlet {
         String sortName = req.getParameter("sort");
         String reversedName = req.getParameter("reversed");
         String search = req.getParameter("search");
-        String locale = getLocale(req);
+//        String locale = getLocale(req);
+        String locale = req.getSession().getAttribute("locale").toString();
 
         req.setAttribute("publications", publicationService.provideUsersPublications(user, topicParam, search, sortName, reversedName, locale));
         req.setAttribute("topics", topicService.provideTopics("name", locale));
@@ -194,11 +192,16 @@ public class FrontController extends HttpServlet {
         String sortName = req.getParameter("sort");
         String reversedName = req.getParameter("reversed");
         String search = req.getParameter("search");
-        String locale = getLocale(req);
+//        String locale = getLocale(req);
+        String locale = req.getSession().getAttribute("locale").toString();
 
         req.setAttribute("publications", publicationService.providePublications(topicParam, search, sortName, reversedName, locale));
         req.setAttribute("topics", topicService.provideTopics("name", locale));
         req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
+    }
+
+    private Cookie getLocaleCookie(HttpServletRequest req) {
+        return null;
     }
 
     private String getLocale(HttpServletRequest req) {
